@@ -1,0 +1,16 @@
+---
+- name: Add Vivaldi key
+  apt_key:
+    url: http://repo.vivaldi.com/stable/linux_signing_key.pub
+    state: present
+
+- name: Add the Vivaldi repo
+  apt_repository:
+    repo: deb [arch=i386,amd64] http://repo.vivaldi.com/stable/deb/ stable main
+    state: present
+
+- name: Install Vivaldi
+  apt:
+    name: vivaldi-stable
+    state: present
+    update_cache: True

@@ -1,0 +1,11 @@
+---
+- name: Add Firefox Developer Edition PPA
+  apt_repository:
+    repo: ppa:ubuntu-mozilla-daily/firefox-aurora
+    state: present
+
+- name: Install Firefox Developer Edition
+  apt:
+    name: firefox
+    state: latest
+    update_cache: True

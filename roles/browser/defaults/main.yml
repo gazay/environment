@@ -1,0 +1,4 @@
+---
+install_chrome: True
+install_firefox: False
+install_vivaldi: False
