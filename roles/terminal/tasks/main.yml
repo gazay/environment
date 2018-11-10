@@ -1,0 +1,7 @@
+---
+- name: Terminator installation
+  import_tasks: terminator.yml
+  when: install_terminator
+
+- name: Zsh stuff
+  import_tasks: zsh.yml

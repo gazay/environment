@@ -1,0 +1,23 @@
+---
+- name: Make zsh my default shell
+  user:
+    name: "{{ primary_user }}"
+    shell: /usr/bin/zsh
+
+- name: Run the Oh-My-Zsh installer
+  become_user: "{{ primary_user }}"
+  shell: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+- name: Copy my theme
+  template:
+    src: gazay.zsh-theme
+    dest: "/home/{{ primary_user }}/.oh-my-zsh/themes/gazay.zsh-theme"
+    owner: "{{ primary_user }}"
+    group: "{{ primary_user_group }}"
+
+- name: Create zsh config
+  template:
+    src: zshrc
+    dest: "/home/{{ primary_user }}/.zshrc"
+    owner: "{{ primary_user }}"
+    group: "{{ primary_user_group }}"

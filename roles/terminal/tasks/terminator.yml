@@ -1,0 +1,24 @@
+---
+- name: Add terminator repo
+  apt_repository:
+    repo: ppa:gnome-terminator
+
+- name: Install terminator
+  apt:
+    name: terminator
+    state: latest
+    update_cache: True
+
+- name: Ensure terminator config directory exist
+  file:
+    path: "/home/{{ primary_user }}/.config/terminator"
+    state: directory
+    owner: "{{ primary_user }}"
+    group: "{{ primary_user_group }}"
+
+- name: Create terminator config
+  template:
+    src: config
+    dest: "/home/{{ primary_user }}/.config/terminator/config"
+    owner: "{{ primary_user }}"
+    group: "{{ primary_user_group }}"
