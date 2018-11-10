@@ -1,12 +1,8 @@
 ---
-- name: Update the apt cache
+- name: Update and upgrade the apt
   apt:
     update_cache: True
-
-- name: Upgrade all packages
-  apt:
-    name: '*'
-    state: latest
+    upgrade: True
 
 - name: Install common stuff
   apt:
