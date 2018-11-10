@@ -5,9 +5,6 @@ common_packages:
   - curl
   - vim
   - zsh
-common_snaps:
-  - keepassxc
-  - slack
 excess_packages:
   - cheese
   - evolution

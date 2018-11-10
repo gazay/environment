@@ -13,10 +13,8 @@
     name: "{{ excess_packages }}"
     state: absent
 
-- name: Install common snaps
-  snap:
-    name: "{{ common_snaps }}"
-    state: present
+- name: Install KeePassXC
+  shell: snap install keepassxc
 
 - name: Install fonts
   import_tasks: fonts.yml
