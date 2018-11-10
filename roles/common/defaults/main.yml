@@ -1,0 +1,29 @@
+---
+common_packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - vim
+  - zsh
+common_snaps:
+  - keepassxc
+  - slack
+excess_packages:
+  - cheese
+  - evolution
+  - rhythmbox
+  - gnome-boxes
+  - gnome-documents
+  - orca
+  - gnome-contacts
+  - samba-client
+  - gnome-getting-started-docs
+  - nautilus-sendto
+  - gnome-shell-extension-*
+  - libreoffice-*
+  - gnome-characters
+  - gnome-maps
+  - gnome-photos
+  - simple-scan
+  - virtualbox-guest-additions
+install_dropbox: True

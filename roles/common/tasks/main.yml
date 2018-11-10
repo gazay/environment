@@ -1,0 +1,29 @@
+---
+- name: Update the apt cache
+  apt:
+    update_cache: True
+
+- name: Install common stuff
+  apt:
+    name: "{{ common_packages }}"
+    state: present
+
+- name: Remove excess packages
+  apt:
+    name: "{{ excess_packages }}"
+    state: absent
+
+- name: Install common snaps
+  snap:
+    name: "{{ common_snaps }}"
+    state: present
+
+- name: Install fonts
+  import_tasks: fonts.yml
+
+- name: Dropbox installation
+  import_tasks: dropbox.yml
+  when: install_dropbox
+
+- name: Do SSH tasks
+  import_tasks: ssh.yml

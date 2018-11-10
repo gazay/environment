@@ -1,0 +1,6 @@
+---
+- name: Generate SSH ed25519 key
+  user:
+    name: "{{ primary_user }}"
+    generate_ssh_key: True
+    ssh_key_type: ed25519

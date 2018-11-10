@@ -1,0 +1,9 @@
+---
+- name: Download Dropbox
+  get_url:
+    url: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb
+    dest: /tmp/dropbox.deb
+
+- name: Install Dropbox
+  apt:
+    deb: /tmp/dropbox.deb
