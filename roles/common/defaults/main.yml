@@ -5,6 +5,7 @@ common_packages:
   - curl
   - vim
   - zsh
+  - silversearcher-ag
 excess_packages:
   - cheese
   - evolution
