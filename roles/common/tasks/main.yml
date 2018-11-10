@@ -3,6 +3,11 @@
   apt:
     update_cache: True
 
+- name: Upgrade all packages
+  apt:
+    name: '*'
+    state: latest
+
 - name: Install common stuff
   apt:
     name: "{{ common_packages }}"
