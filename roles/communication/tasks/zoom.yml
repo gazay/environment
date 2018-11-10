@@ -12,4 +12,5 @@
   command: dpkg -i /tmp/zoom_amd64.deb
 
 - name: Install zoom
-  command: apt-get -f install
+  apt:
+    name: zoom
