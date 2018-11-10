@@ -10,7 +10,7 @@
     - { role: common, tags: common }
     - { role: browser, tags: browser }
     - { role: terminal, tags: terminal }
-#   - { role: communication, tags: communication }
+    - { role: communication, tags: communication }
 #   - { role: design, tags: design }
 #   - { role: development, tags: development }
 #   - { role: devops, tags: devops }

@@ -1,0 +1,15 @@
+---
+- name: Download zoom deb
+  get_url:
+    url: https://zoom.us/client/latest/zoom_amd64.deb
+    dest: /tmp/zoom_amd64.deb
+
+- name: Install zoom dependency
+  apt:
+    name: libxcb-xtest0
+
+- name: Unpack zoom deb
+  command: dpkg -i /tmp/zoom_amd64.deb
+
+- name: Install zoom
+  command: apt-get -f install

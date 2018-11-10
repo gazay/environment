@@ -1,0 +1,12 @@
+---
+- name: Install Zoom
+  import_tasks: zoom.yml
+  when: install_zoom
+
+- name: Install Slack
+  shell: snap install slack --classic
+  when: install_slack
+
+- name: Install Telegram
+  shell: snap install telegram-desktop
+  when: install_tg

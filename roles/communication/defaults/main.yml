@@ -1,0 +1,4 @@
+---
+install_zoom: True
+install_tg: True
+install_slack: True
