@@ -10,68 +10,72 @@
 
 3. Создаем нужные нам шифрованные партишены:
 
-Информация взята из статьи [https://vitobotta.com/2018/01/11/ubuntu-full-disk-encryption-manual-partitioning-uefi/](https://vitobotta.com/2018/01/11/ubuntu-full-disk-encryption-manual-partitioning-uefi/)
+    Информация взята из статьи [https://vitobotta.com/2018/01/11/ubuntu-full-disk-encryption-manual-partitioning-uefi/](https://vitobotta.com/2018/01/11/ubuntu-full-disk-encryption-manual-partitioning-uefi/)
 
-    1. Загружаемся в live usb в try ubuntu
-    2. Запускаем gparted и удаляем все существующие партишены, нажимаем apply
-    3. Создаем партишен fat32 partition of 256MB with name “EFI System Partition” and label “ESP”, нажимаем apply
-    4. right-click на партишен, manage flags, ставим esp, нажимаем apply
+    - Загружаемся в live usb в try ubuntu
+    - Запускаем gparted и удаляем все существующие партишены, нажимаем apply
+    - Создаем партишен fat32 partition of 256MB with name “EFI System Partition” and label “ESP”, нажимаем apply
+    - right-click на партишен, manage flags, ставим esp, нажимаем apply
 
     Получили партишен /dev/nvme0n1p1
 
 4. Запускаем установщик:
 
-    1. Выбираем minimal install, галка на download updates если есть сеть
-    2. Выбираем тип Something else чтоб использовать созданный партишен
-    3. ext2 partition of 512MB that will be used as /boot (the partition will be identified as /dev/nvme0n1p2)
-    4. создаем партишен на оставшееся место с типом “physical volume for encryption”, и вводим пароль для расшифровки (the partition will be identified as /dev/nvme0n1p3)
+    - Выбираем minimal install, галка на download updates если есть сеть
+    - Выбираем тип Something else чтоб использовать созданный партишен
+    - ext2 partition of 512MB that will be used as /boot (the partition will be identified as /dev/nvme0n1p2)
+    - создаем партишен на оставшееся место с типом “physical volume for encryption”, и вводим пароль для расшифровки (the partition will be identified as /dev/nvme0n1p3)
 
     выходим из установщика
 
 5. Запускаем терминал:
 
-    1. sudo -s
-    2. vgcreate system /dev/disk/by-id/dm-name-nvme0n1p3_crypt
-    3. lvcreate -L 20G -n swap system (нам нужен большой свап для хибернейта)
-    4. lvcreate -L 30G -n root system
-    5. lvcreate -L 300G -n home system (оставим в запасе неразмеченным еще гигов под 100+ чтоб можно было куда угодно его присунуть
+    ```bash
+    sudo -s
+    vgcreate system /dev/disk/by-id/dm-name-nvme0n1p3_crypt
+    lvcreate -L 20G -n swap system # (нам нужен большой свап для хибернейта)
+    lvcreate -L 30G -n root system
+    lvcreate -L 300G -n home system # (оставим в запасе неразмеченным еще гигов под 100+ чтоб можно было куда угодно его присунуть
+    ```
 
 6. Не закрываем терминал, запускаем установщик опять, опять доходим до Something else:
 
-    1. Правый клик на /dev/nvme0n1p1, Change - проверяем что выставлено use as EFI System Partition
-    2. Правый клик на /dev/nvme0n1p2, Change - смотрим что там выставлено ext2 file system, кликаем на Format и маунт поинт должен быть на /boot
-    3. Правый клик на /dev/mapper/system-swap – Change, use as swap area
-    4. Правый клик на /dev/mapper/system-root – Change, use as ext4, mount '/'
-    5. Правый клик на /dev/mapper/system-home – Change, use as ext4, mount '/home'
-    6. Выбираем в выпадашке ниже разделов /dev/nvme0n1 в качестве диска для бута
-    7. Продолжаем инсталляцию, но не закрываем ее по завершению
+    - Правый клик на /dev/nvme0n1p1, Change - проверяем что выставлено use as EFI System Partition
+    - Правый клик на /dev/nvme0n1p2, Change - смотрим что там выставлено ext2 file system, кликаем на Format и маунт поинт должен быть на /boot
+    - Правый клик на /dev/mapper/system-swap – Change, use as swap area
+    - Правый клик на /dev/mapper/system-root – Change, use as ext4, mount '/'
+    - Правый клик на /dev/mapper/system-home – Change, use as ext4, mount '/home'
+    - Выбираем в выпадашке ниже разделов /dev/nvme0n1 в качестве диска для бута
+    - Продолжаем инсталляцию, но не закрываем ее по завершению
 
 7. Возвращаемся в терминал
 
-    1. Получаем UUID из команды blkid /dev/nvme0n1p3
-    2. echo 'nvme0n1p3_crypt UUID=(uuid without quotes) none luks,discard' > /target/etc/crypttab
-    3. mount -t proc proc /target/proc && mount --rbind /sys /target/sys && mount --rbind /dev /target/dev && chroot /target
-    4. grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader=ubuntu --boot-directory=/boot/efi/EFI/ubuntu --recheck /dev/nvme0n1
-    5. grub-mkconfig --output=/boot/efi/EFI/ubuntu/grub/grub.cfg
-    6. update-initramfs -ck all
-    7. exit
-    8. reboot
+    ```bash
+    blkid /dev/nvme0n1p3 # записываем UUID из команды 
+    echo 'nvme0n1p3_crypt UUID=(uuid without quotes) none luks,discard' > /target/etc/crypttab
+    mount -t proc proc /target/proc && mount --rbind /sys /target/sys && mount --rbind /dev /target/dev && chroot /target
+    grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader=ubuntu --boot-directory=/boot/efi/EFI/ubuntu --recheck /dev/nvme0n1
+    grub-mkconfig --output=/boot/efi/EFI/ubuntu/grub/grub.cfg
+    update-initramfs -ck all
+    exit
+    reboot
+    ```
 
-8. В системе проверяем что у нас доступно hibernate - cat /sys/power/state должен содержать disk
+8. В системе проверяем что у нас доступно hibernate - `cat /sys/power/state` должен содержать disk
 
-9. sudo apt install vim
+9. `sudo apt install vim`
 
 10. Фиксим хибернейт:
 
-    1. sudo vim /etc/initramfs-tools/conf.d/resume прописываем RESUME=/dev/mapper/system-swap
-    2. sudo vim /etc/default/grub добавляем в GRUB_CMDLINE_LINUX_DEFAULT в конец
+    - `sudo vim /etc/initramfs-tools/conf.d/resume` прописываем `RESUME=/dev/mapper/system-swap`
+    - `sudo vim /etc/default/grub` добавляем в `GRUB_CMDLINE_LINUX_DEFAULT` в конец
 
-        resume=/dev/mapper/system-swap
+        `resume=/dev/mapper/system-swap`
 
-    3. sudo update-initramfs -u -k all && sudo update-grub
-    4. sudo reboot
+    - `sudo update-initramfs -u -k all && sudo update-grub`
+    - `sudo reboot`
 
-11. Проверяем что хибернейт работает из терминала - sudo systemctl hibernate (после того как комп включите опять должна остаться сессия и терминал в котором вы вызывали хибернейт
+11. Проверяем что хибернейт работает из терминала - `sudo systemctl hibernate` (после того как комп включите опять должна остаться сессия и терминал в котором вы вызывали хибернейт
 
 12. Для добавления кнопки [http://ubuntuhandbook.org/index.php/2018/05/add-hibernate-option-ubuntu-18-04/](http://ubuntuhandbook.org/index.php/2018/05/add-hibernate-option-ubuntu-18-04/)
 
