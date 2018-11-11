@@ -52,7 +52,3 @@
 - name: Deploy chruby autoload script
   copy: src=/usr/local/share/chruby/chruby.sh
         dest=/etc/profile.d/chruby.sh
-
-- name: Install bundler
-  become_user: "{{ primary_user }}"
-  shell: chruby-exec 2.5 && gem install bundler
