@@ -15,11 +15,11 @@
   unarchive:
     remote_src: True
     src: https://github.com/postmodern/ruby-install/archive/v0.7.0.tar.gz
-    dest: /tmp/ruby-install
+    dest: /tmp
   when: ruby_install is failed
 
 - name: Install ruby-install
-  shell: make install chdir=/tmp/ruby-install
+  shell: make install chdir=/tmp/ruby-install-0.7.0
   when: ruby_install is failed
 
 - name: Check for chruby
@@ -32,12 +32,12 @@
   unarchive:
     remote_src: True
     src: https://github.com/postmodern/chruby/archive/v0.3.9.tar.gz
-    dest: /tmp/chruby
-  register: chruby is failed
+    dest: /tmp
+  when: chruby is failed
 
 - name: Install chruby
-  shell: make install chdir=/tmp/chruby
-  register: chruby is failed
+  shell: make install chdir=/tmp/chruby-0.3.9
+  when: chruby is failed
 
 - name: Install latest ruby
   become_user: "{{ primary_user }}"

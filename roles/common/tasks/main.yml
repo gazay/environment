@@ -14,8 +14,15 @@
     name: "{{ excess_packages }}"
     state: absent
 
+- name: Check for keepassxc
+  become_user: "{{ primary_user }}"
+  shell: command -v keepassxc
+  ignore_errors: True
+  register: keepassxc
+
 - name: Install KeePassXC
   shell: snap install keepassxc
+  when: keepassxc is failed
 
 - name: Install fonts
   import_tasks: fonts.yml

@@ -1,16 +1,26 @@
 ---
+- name: Check for zoom
+  become_user: "{{ primary_user }}"
+  shell: command -v zoom
+  ignore_errors: True
+  register: zoom
+
 - name: Download zoom deb
   get_url:
     url: https://zoom.us/client/latest/zoom_amd64.deb
     dest: /tmp/zoom_amd64.deb
+  when: zoom is failed
 
 - name: Install zoom dependency
   apt:
     name: libxcb-xtest0
+  when: zoom is failed
 
 - name: Unpack zoom deb
   command: dpkg -i /tmp/zoom_amd64.deb
+  when: zoom is failed
 
 - name: Install zoom
   apt:
     name: zoom
+  when: zoom is failed

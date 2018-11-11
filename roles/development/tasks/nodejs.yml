@@ -1,6 +1,13 @@
 ---
+- name: Check for node
+  become_user: "{{ primary_user }}"
+  shell: command -v node
+  ignore_errors: True
+  register: node
+
 - name: Node.js setup script
   shell: curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+  when: node is failed
 
 - name: Install Node.js
   apt:
