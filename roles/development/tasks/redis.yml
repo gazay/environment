@@ -1,0 +1,10 @@
+---
+- name: Redis packages are installed
+  apt:
+    name: redis
+
+- name: Redis active in systemd
+  systemd:
+    state: started
+    enabled: True
+    name: redis
