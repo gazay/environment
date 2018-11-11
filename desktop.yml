@@ -11,7 +11,6 @@
     - { role: browser, tags: browser }
     - { role: terminal, tags: terminal }
     - { role: communication, tags: communication }
-#   - { role: development, tags: development }
-#   - { role: devops, tags: devops }
+    - { role: development, tags: development }
 #   - { role: entertainment, tags: entertainment }
 #   - { role: writing, tags: writing }
