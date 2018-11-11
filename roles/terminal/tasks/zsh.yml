@@ -4,9 +4,15 @@
     name: "{{ primary_user }}"
     shell: /usr/bin/zsh
 
+- name: Check oh-my-zsh exists
+  stat:
+    path: "/home/{{ primary_user }}/.oh-my-zsh"
+  register: omz
+
 - name: Run the Oh-My-Zsh installer
   become_user: "{{ primary_user }}"
   shell: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  when: not omz.stat.exists
 
 - name: Copy my theme
   template:
