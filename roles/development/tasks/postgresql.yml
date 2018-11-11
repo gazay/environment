@@ -1,0 +1,10 @@
+---
+- name: PostgreSQL packages are installed
+  apt: name={{item}}
+  with_items:
+    - postgresql
+    - libpq-dev
+
+- postgresql_user:
+  name: gazay
+  role_attr_flags: SUPERUSER
