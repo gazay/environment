@@ -1,0 +1,6 @@
+---
+- name: Install Spotify
+  shell: snap install spotify --classic
+
+- name: Install VLC
+  shell: snap install vlc

@@ -7,8 +7,5 @@
     primary_user_group: gazay
   roles:
     - { role: common, tags: common }
-    - { role: browser, tags: browser }
     - { role: terminal, tags: terminal }
-    - { role: communication, tags: communication }
     - { role: development, tags: development }
-    - { role: entertainment, tags: entertainment }
