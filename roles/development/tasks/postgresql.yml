@@ -15,6 +15,7 @@
 - name: Postgre user created
   become_user: postgres
   shell: "createuser -s {{ primary_user }}"
+  ignore_errors: True
 
 - name: Copy my pg auth config
   template:
