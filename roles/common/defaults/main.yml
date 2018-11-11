@@ -6,6 +6,8 @@ common_packages:
   - vim
   - zsh
   - silversearcher-ag
+  - build-essential
+  - cmake
 excess_packages:
   - cheese
   - evolution
