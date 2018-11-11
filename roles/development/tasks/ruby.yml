@@ -24,7 +24,7 @@
 
 - name: Check for chruby
   become_user: "{{ primary_user }}"
-  shell: command -v chruby
+  shell: command -v chruby-exec
   ignore_errors: True
   register: chruby
 
@@ -55,4 +55,4 @@
 
 - name: Install bundler
   become_user: "{{ primary_user }}"
-  shell: chruby 2.5 && gem install bundler
+  shell: chruby-exec 2.5 && gem install bundler
