@@ -1,9 +1,15 @@
 ---
+- name: Check go exists
+  stat:
+    path: "/usr/local/go"
+  register: go_dir
+
 - name: Download Go
   unarchive:
     remote_src: True
     src: https://dl.google.com/go/go1.11.linux-amd64.tar.gz
     dest: /usr/local/
+  when: not go_dir.stat.exists
 
 - name: Add Go to PATH
   lineinfile:

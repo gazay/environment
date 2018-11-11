@@ -10,11 +10,11 @@
     remote_src: True
     src: https://github.com/postmodern/ruby-install/archive/v0.7.0.tar.gz
     dest: /tmp/ruby-install
-  register: ruby-install_unarchive
+  register: ruby_install_unarchive
 
 - name: Install ruby-install
   shell: make install chdir=/tmp/ruby-install
-  when: ruby-install_unarchive.changed
+  when: ruby_install_unarchive.changed
 
 - name: Unarchive chruby
   unarchive:
