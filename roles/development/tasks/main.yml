@@ -25,5 +25,8 @@
 - name: PostgreSQL
   import_tasks: postgresql.yml
 
+- name: Redis
+  import_tasks: redis.yml
+
 #- name: Python
 #  import_tasks: python.yml

@@ -3,8 +3,14 @@
   apt: name={{item}}
   with_items:
     - postgresql
+    - postgresql-contrib
     - libpq-dev
 
-- postgresql_user:
-  name: gazay
-  role_attr_flags: SUPERUSER
+- name: Postgresql active in systemd
+  systemd:
+    state: started
+    enabled: True
+    name: postgresql
+
+- name: Postgre user created
+  shell: su postgres -c 'createuser -s {{ primary_user }}'
