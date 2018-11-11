@@ -1,10 +1,10 @@
 ---
 - name: PostgreSQL packages are installed
-  apt: name={{item}}
-  with_items:
-    - postgresql
-    - postgresql-contrib
-    - libpq-dev
+  apt:
+    name:
+      - postgresql
+      - postgresql-contrib
+      - libpq-dev
 
 - name: Postgresql active in systemd
   systemd:
@@ -13,4 +13,13 @@
     name: postgresql
 
 - name: Postgre user created
-  shell: su postgres -c 'createuser -s {{ primary_user }}'
+  become_user: postgres
+  shell: "createuser -s {{ primary_user }}"
+
+- name: Copy my pg auth config
+  template:
+    src: pg_hba
+    dest: "/etc/postgresql/10/main/pg_hba.conf"
+    owner: postgres
+    group: postgres
+    mode: 0600
