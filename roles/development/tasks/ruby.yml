@@ -41,7 +41,7 @@
 
 - name: Check for ruby
   stat:
-    path: "/home/gazay/{{ primary_user }}/.rubies/ruby-2.5.3"
+    path: "/home/{{ primary_user }}/.rubies/ruby-2.5.3"
   register: ruby
 
 - name: Install latest ruby
