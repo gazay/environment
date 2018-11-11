@@ -43,10 +43,9 @@
   become_user: "{{ primary_user }}"
   shell: ruby-install ruby 2.5
 
-- name: Add chruby to bashrc
-  lineinfile:
-    path: "/home/{{ primary_user }}/.bashrc"
-    line: "source /usr/local/share/chruby/chruby.sh"
+- name: Deploy chruby autoload script
+  copy: src=/usr/local/share/chruby/chruby.sh
+        dest=/etc/profile.d/chruby.sh
 
 - name: Install bundler
   become_user: "{{ primary_user }}"
