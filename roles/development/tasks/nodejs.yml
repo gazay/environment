@@ -1,0 +1,25 @@
+---
+- name: Node.js setup script
+  shell: curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+
+- name: Install Node.js
+  apt:
+    name: nodejs
+    state: present
+    update_cache: True
+
+- name: Add Yarn key
+  apt_key:
+    url: https://dl.yarnpkg.com/debian/pubkey.gpg
+    state: present
+
+- name: Add Yarn repository
+  apt_repository:
+    repo: deb https://dl.yarnpkg.com/debian stable main
+    state: present
+
+- name: Install Yarn
+  apt:
+    name: yarn
+    state: present
+    update_cache: True

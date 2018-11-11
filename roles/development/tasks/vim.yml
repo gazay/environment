@@ -1,0 +1,34 @@
+---
+- name: Install vim
+  apt:
+    name: vim
+    state: present
+    update_cache: True
+
+- name: "Create directories for pathogen and plugins"
+  file:
+    path: "/home/{{ primary_user }}/.vim/{{ item }}"
+    state: directory
+    owner: "{{ primary_user }}"
+    group: "{{ primary_user_group }}"
+  with_items: [autoload, bundle]
+
+- name: "Install pathogen"
+  get_url:
+    url: https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+    dest: "/home/{{ primary_user }}/autoload/"
+    owner: "{{ primary_user }}"
+    group: "{{ primary_user_group }}"
+
+- name: Copy my config
+  template:
+    src: vimrc
+    dest: "/home/{{ primary_user }}/.vimrc"
+    owner: "{{ primary_user }}"
+    group: "{{ primary_user_group }}"
+
+- name: Install plugins
+  git:
+    repo: "{{ item.repo }}"
+    dest: "/home/{{ primary_user }}/.vim/bundle/{{ item.name }}"
+  with_items: "{{ pathogen_plugins }}"

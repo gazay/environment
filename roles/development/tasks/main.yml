@@ -1,0 +1,26 @@
+---
+- name: Create code directory
+  file:
+    path: "/home/{{ primary_user }}/code"
+    state: directory
+    owner: "{{ primary_user }}"
+    group: "{{ primary_user_group }}"
+
+- name: Node.js
+  import_tasks: nodejs.yml
+
+- name: Docker
+  import_tasks: docker.yml
+  tags: docker
+
+- name: VIM
+  import_tasks: vim.yml
+
+- name: Go
+  import_tasks: go.yml
+
+- name: Ruby
+  import_tasks: ruby.yml
+
+#- name: Python
+#  import_tasks: python.yml

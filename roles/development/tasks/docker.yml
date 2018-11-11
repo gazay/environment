@@ -1,0 +1,32 @@
+---
+- name: Install Docker apt key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker apt repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic edge
+    state: present
+
+- name: Install Docker
+  apt:
+    name: docker-ce
+    state: present
+    update_cache: True
+
+- name: Make sure docker-compose is there too
+  apt:
+    name: docker-compose
+    state: present
+
+- name: Create a group for docker
+  group:
+    name: docker
+    state: present
+
+- name: Add my user to the docker group
+  user:
+    name: "{{ primary_user }}"
+    append: True
+    groups: docker

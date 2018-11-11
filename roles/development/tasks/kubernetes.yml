@@ -1,0 +1,16 @@
+---
+- name: Add Kube key
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+
+- name: Add Kube repository
+  apt_repository:
+    repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+
+- name: Install Kubectl
+  apt:
+    name: kubectl
+    state: present
+    update_cache: True
