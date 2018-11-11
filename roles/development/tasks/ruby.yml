@@ -39,9 +39,15 @@
   shell: make install chdir=/tmp/chruby-0.3.9
   when: chruby is failed
 
+- name: Check for ruby
+  stat:
+    path: "/home/gazay/{{ primary_user }}/.rubies/ruby-2.5.3"
+  register: ruby
+
 - name: Install latest ruby
   become_user: "{{ primary_user }}"
   shell: ruby-install ruby 2.5
+  when: not ruby.stat.exists
 
 - name: Deploy chruby autoload script
   copy: src=/usr/local/share/chruby/chruby.sh
