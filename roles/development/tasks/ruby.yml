@@ -1,24 +1,30 @@
 ---
+- name: "Create directories for ruby tools"
+  file:
+    path: "/tmp/{{ item }}"
+    state: directory
+  with_items: [ruby-install, chruby]
+
 - name: Unarchive ruby-install
   unarchive:
     remote_src: True
     src: https://github.com/postmodern/ruby-install/archive/v0.7.0.tar.gz
-    dest: /tmp/ruby-install-0.7.0
+    dest: /tmp/ruby-install
   register: ruby-install_unarchive
 
 - name: Install ruby-install
-  shell: make install chdir=/tmp/ruby-install-0.7.0
+  shell: make install chdir=/tmp/ruby-install
   when: ruby-install_unarchive.changed
 
 - name: Unarchive chruby
   unarchive:
     remote_src: True
     src: https://github.com/postmodern/chruby/archive/v0.3.9.tar.gz
-    dest: /tmp/chruby-0.3.9
+    dest: /tmp/chruby
   register: chruby_unarchive
 
 - name: Install chruby
-  shell: make install chdir=/tmp/chruby-0.3.9
+  shell: make install chdir=/tmp/chruby
   when: chruby_unarchive.changed
 
 - name: Install latest ruby
