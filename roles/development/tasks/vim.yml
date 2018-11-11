@@ -16,7 +16,7 @@
 - name: "Install pathogen"
   get_url:
     url: https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
-    dest: "/home/{{ primary_user }}/autoload/"
+    dest: "/home/{{ primary_user }}/.vim/autoload/"
     owner: "{{ primary_user }}"
     group: "{{ primary_user_group }}"
 
