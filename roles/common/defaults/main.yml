@@ -8,6 +8,7 @@ common_packages:
   - silversearcher-ag
   - build-essential
   - cmake
+  - xclip
 excess_packages:
   - cheese
   - evolution
