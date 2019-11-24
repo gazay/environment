@@ -7,7 +7,7 @@ install_docker: True
 install_kubectl: False
 install_redis: False
 install_postgresql: False
-install_python: False
+install_python: True
 
 pathogen_plugins:
   - repo: "https://github.com/scrooloose/nerdtree.git"
@@ -24,3 +24,8 @@ pathogen_plugins:
     name: editorconfig-vim
   - repo: "https://github.com/davidhalter/jedi-vim.git"
     name: jedi-vim
+
+anaconda_install_dir: "/usr/local/anaconda3"
+anaconda_link_dir: "/usr/local/anaconda"
+anaconda_conda_bin: "{{anaconda_link_dir}}/bin/conda"
+anaconda_installer: Anaconda3-2019.10-Linux-x86_64.sh
