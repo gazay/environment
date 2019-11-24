@@ -13,7 +13,7 @@
 - name: Download Iosevka
   unarchive:
     remote_src: True
-    src: https://github.com/be5invis/Iosevka/releases/download/v2.0.1/01-iosevka-2.0.1.zip
+    src: https://github.com/be5invis/Iosevka/releases/download/v2.3.3/01-iosevka-2.3.3.zip
     dest: /tmp/iosevka/
   when: not iosevka.stat.exists
 

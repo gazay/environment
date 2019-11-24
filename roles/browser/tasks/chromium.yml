@@ -1,0 +1,11 @@
+---
+- name: Add Chromium-Beta repository
+  apt_repository:
+    repo: ppa:saiarcot895/chromium-beta
+    state: present
+
+- name: Install Chromium
+  apt:
+    name: chromium-browser
+    state: present
+    update_cache: True

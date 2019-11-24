@@ -3,13 +3,14 @@ common_packages:
   - apt-transport-https
   - ca-certificates
   - curl
-  - vim
+  - neovim
   - zsh
   - silversearcher-ag
   - build-essential
   - cmake
   - xclip
 excess_packages:
+  - firefox
   - cheese
   - evolution
   - rhythmbox
