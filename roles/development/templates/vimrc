@@ -7,7 +7,7 @@ syntax on
 filetype plugin indent on
 
 " Shared clipboard
-set clipboard+=unnamed
+set clipboard=unnamedplus
 " Set line numbers display
 set nu
 
@@ -30,6 +30,9 @@ augroup markdown
     au!
     au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 augroup END
+
+" DVC
+autocmd! BufNewFile,BufRead Dvcfile,*.dvc setfiletype yaml
 
 " Don't write backup files
 set nobackup
@@ -55,6 +58,9 @@ set ttimeoutlen=100
 let NERDTreeAutoDeleteBuffer=1
 map <C-n> :NERDTreeToggle<CR>
 
+" Allow NerdTree to show hidden files
+let NERDTreeShowHidden=1
+
 " Run nerdtree on startup
 function! StartUp()
   if 0 == argc()
@@ -64,48 +70,24 @@ endfunction
 
 autocmd VimEnter * call StartUp()
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" OpenChangedFiles COMMAND
-" Open a split for each dirty file in git
-"
-" Shamelessly stolen from Gary Bernhardt: https://github.com/garybernhardt/dotfiles
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! OpenChangedFiles()
-  only " Close all windows, unless they're modified
-  let status = system('git status -s | grep "^ \?\(M\|A\)" | cut -d " " -f 3')
-  let filenames = split(status, "\n")
-  if len(filenames) > 0
-    exec "edit " . filenames[0]
-    for filename in filenames[1:]
-      exec "sp " . filename
-    endfor
-  end
-endfunction
-command! OpenChangedFiles :call OpenChangedFiles()
+" Plugins will be downloaded under the specified directory.
+call plug#begin('~/.vim/plugged')
 
-nnoremap ,ocf :OpenChangedFiles<CR>
+" Declare the list of plugins.
+Plug 'neomake/neomake'
 
-" Navigate to the block surrounding this one
-" For example if you're inside
-" foo do
-"    bar do
-"      # you are here
-"    end
-" end
-"
-" Then hitting ,orb ("outer ruby block") will take you to 'foo do'
-"
-" This is relying on the textobj-rubyblock which gives us 'ar' around ruby
-" and matchit.vim which gives us jumping to the matching
-nnoremap <silent> ,orb :normal varar%<esc><esc>
+" List ends here. Plugins become visible to Vim after this call.
+call plug#end()
 
-"Abbreviations, trigger by typing the abbreviation and hitting space
-abbr pry! require 'pry'; binding.pry
+" Neomake and syntastic
+" Run NeoMake on read and write operations
+autocmd! BufReadPost,BufWritePost * Neomake
 
-autocmd Filetype * setlocal ts=2 sw=2 expandtab
-autocmd Filetype cpp setlocal ts=4 sw=4 sts=0 noexpandtab
-autocmd Filetype python setlocal ts=4 sw=4 sts=4 expandtab
-autocmd Filetype ipynb setlocal ts=4 sw=4 sts=0 noexpandtab
-autocmd Filetype 8o setlocal ts=4 sw=4 sts=0 noexpandtab
+" Disable inherited syntastic
+let g:syntastic_mode_map = {
+  \ "mode": "passive",
+  \ "active_filetypes": [],
+  \ "passive_filetypes": [] }
 
-let g:syntastic_python_checkers = ['flake8', 'pep8', 'pylint']
+let g:neomake_serialize = 1
+let g:neomake_serialize_abort_on_error = 1
