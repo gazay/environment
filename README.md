@@ -51,7 +51,7 @@
 7. Возвращаемся в терминал
 
     ```bash
-    blkid /dev/nvme0n1p3 # записываем UUID из команды 
+    blkid /dev/nvme0n1p3 # записываем UUID из команды
     echo 'nvme0n1p3_crypt UUID=(uuid without quotes) none luks,discard' > /target/etc/crypttab
     mount -t proc proc /target/proc && mount --rbind /sys /target/sys && mount --rbind /dev /target/dev && chroot /target
     grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader=ubuntu --boot-directory=/boot/efi/EFI/ubuntu --recheck /dev/nvme0n1
@@ -61,9 +61,12 @@
     reboot
     ```
 
+    `grub-mkconfig` работает сейчас очень медленно в этом случае в связи с
+    изменениями в lvm. Прям пару часов. Фиксов для убунты рабочих не нашел.
+
 8. В системе проверяем что у нас доступно hibernate - `cat /sys/power/state` должен содержать disk
 
-9. `sudo apt install vim`
+9. `sudo apt install neovim`
 
 10. Фиксим хибернейт:
 
