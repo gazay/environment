@@ -2,3 +2,15 @@
 - name: Install Chromium
   import_tasks: chromium.yml
   when: install_chromium
+
+- name: Install Chrome
+  import_tasks: chrome.yml
+  when: install_chrome
+
+- name: Install FireFox
+  import_tasks: firefox.yml
+  when: install_firefox
+
+- name: Install Vivaldi
+  import_tasks: vivaldi.yml
+  when: install_vivaldi
