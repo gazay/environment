@@ -1,7 +1,7 @@
 ---
 - name: Install vim
   apt:
-    name: vim
+    name: neovim
     state: present
     update_cache: True
 
@@ -11,7 +11,7 @@
     state: directory
     owner: "{{ primary_user }}"
     group: "{{ primary_user_group }}"
-  with_items: [autoload, bundle]
+  with_items: [autoload, bundle, plugged]
 
 - name: "Install pathogen"
   get_url:

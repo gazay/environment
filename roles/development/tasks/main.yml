@@ -8,25 +8,38 @@
 
 - name: Node.js
   import_tasks: nodejs.yml
+  when: install_node
 
 - name: Docker
   import_tasks: docker.yml
   tags: docker
+  when: install_docker
+
+- name: Kubectl
+  import_tasks: kubernetes.yml
+  tags: kubectl
+  when: install_kubectl
 
 - name: VIM
   import_tasks: vim.yml
+  when: install_vim
 
 - name: Go
   import_tasks: go.yml
+  when: install_go
 
 - name: Ruby
   import_tasks: ruby.yml
+  when: install_ruby
 
 - name: PostgreSQL
   import_tasks: postgresql.yml
+  when: install_postgresql
 
 - name: Redis
   import_tasks: redis.yml
+  when: install_redis
 
-#- name: Python
-#  import_tasks: python.yml
+- name: Python
+  import_tasks: python.yml
+  when: install_python

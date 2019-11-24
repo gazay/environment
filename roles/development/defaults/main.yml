@@ -1,4 +1,14 @@
 ---
+install_go: False
+install_vim: True
+install_ruby: False
+install_node: False
+install_docker: True
+install_kubectl: False
+install_redis: False
+install_postgresql: False
+install_python: False
+
 pathogen_plugins:
   - repo: "https://github.com/scrooloose/nerdtree.git"
     name: nerdtree
