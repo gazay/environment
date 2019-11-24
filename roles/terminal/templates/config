@@ -1,42 +1,46 @@
 [global_config]
-  title_transmit_bg_color = "#d30102"
   focus = system
+  title_transmit_bg_color = "#d30102"
 [keybindings]
-  reset_clear = <Ctrl>R
   new_tab = <Ctrl>T
-  split_horiz = <Ctrl><Shift>E
-  split_vert = <Ctrl>E
+  split_horiz = <Primary><Shift>quotedbl
+  split_vert = <Primary><Shift>percent
   close_term = <Ctrl><Shift>W
-  search = <Ctrl>F
-  full_screen = <Ctrl><Shift>F
-  new_window = <Ctrl>N
+  search = <Primary><Shift>f
+  next_tab = <Alt>bracketright
+  prev_tab = <Alt>bracketleft
+  full_screen = <Alt>f
+  reset_clear = <Primary><Shift>r
+  new_window = <Primary><Shift>n
 [profiles]
   [[default]]
-    # solarized-light
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
     background_color = "#eee8d5"
-    foreground_color = "#002b36"
     cursor_color = "#002b36"
-
+    foreground_color = "#002b36"
+    scrollback_lines = 10000
+    scrollback_infinite = True
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
   [[solarized-dark]]
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#586e75:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
-    foreground_color = "#eee8d5"
     background_color = "#002b36"
     cursor_color = "#eee8d5"
-
+    foreground_color = "#eee8d5"
+    scrollback_lines = 10000
+    scrollback_infinite = True
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#586e75:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
   [[solarized-light]]
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
     background_color = "#eee8d5"
-    foreground_color = "#002b36"
     cursor_color = "#002b36"
-
+    foreground_color = "#002b36"
+    scrollback_lines = 10000
+    scrollback_infinite = True
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
 [layouts]
   [[default]]
     [[[child1]]]
-      type = Terminal
       parent = window0
       profile = solarized-light
+      type = Terminal
     [[[window0]]]
-      type = Window
       parent = ""
+      type = Window
 [plugins]

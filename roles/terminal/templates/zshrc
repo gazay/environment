@@ -14,21 +14,16 @@ ZSH_THEME="gazay"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
-# Work path
-alias gow='cd ~/code/martians/amplifr-projects/amplifr'
-alias gop='cd ~/code/martians/amplifr-projects'
-alias god='cd ~/code/dl'
+# Mapping to nvim
+if type nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+fi
 
-alias prod="~/.get_amplifr_prod.sh"
-alias ssh_to="~/.ssh_to_pod.sh"
+# Work path
+alias gow='cd ~/code/martians'
 
 # Python, Jupyter
 alias jp='jupyter notebook'
-
-# PS
-alias psa="ps aux"
-alias psg="ps aux | grep "
-alias psr='ps aux | grep ruby'
 
 # Show human friendly numbers and colors
 alias df='df -h'
@@ -44,6 +39,8 @@ alias reload="exec $SHELL -l"
 alias ll='ls -alh --color=auto'
 alias ls='ls --color=auto'
 
+alias yaus='yarn cache clean && rm -R node_modules && yarn && yarn start'
+
 # Functions
 #
 # (f)ind by (n)ame
@@ -52,20 +49,28 @@ alias ls='ls --color=auto'
 function fn() { ls **/*$1* }
 
 # Chruby env
-source /usr/local/share/chruby/chruby.sh
-source /usr/local/share/chruby/auto.sh
+if type chruby > /dev/null 2>&1; then
+  source /usr/local/share/chruby/chruby.sh
+  source /usr/local/share/chruby/auto.sh
 
-chruby 2.5.3
+  chruby 2.6.5
+fi
 
-# Amplifr setup
-export DATABASE_URL=postgresql://postgres@localhost/amplifr_development
-export SLAVE_DATABASE_URL=postgresql://postgres@localhost/amplifr_development
-export PUMA_PORT=3000
-export RAILS_ENV=development
-export RACK_ENV=development
-export PUMA_MIN_THREADS=2
-export PUMA_MAX_THREADS=8
-export PUMA_CONCURRENCY=2
-export REDIS_URL=redis://localhost
+# Cuda
+export PATH=/usr/local/cuda-10.1/bin${PATH:+:${PATH}}
+export CUDADIR=/usr/local/cuda-10.1
+export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
-export PATH="$HOME/.yarn/bin:$PATH"
+# Anaconda
+export PATH="/home/gazay/anaconda3/bin:$PATH"
+export CMAKE_PREFIX_PATH="/home/gazay/anaconda3/"
+
+# Python envs
+alias py38='conda activate py38'
+alias py27='conda activate py27'
+alias pysys='conda deactivate'
+
+py37
+
+# XDG
+export XDG_CONFIG_HOME=$HOME/.config

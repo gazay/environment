@@ -1,0 +1,21 @@
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python
+
+## Base
+*.py[cod]
+*$py.class
+__pycache__/
+logs/
+*.so
+
+## ML / DL
+data/
+.ipynb_checkpoints/

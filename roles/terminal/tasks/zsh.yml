@@ -27,3 +27,24 @@
     dest: "/home/{{ primary_user }}/.zshrc"
     owner: "{{ primary_user }}"
     group: "{{ primary_user_group }}"
+
+- name: Create editorconfig
+  template:
+    src: editorconfig
+    dest: "/home/{{ primary_user }}/.editorconfig"
+    owner: "{{ primary_user }}"
+    group: "{{ primary_user_group }}"
+
+- name: Create gitconfig
+  template:
+    src: gitconfig
+    dest: "/home/{{ primary_user }}/.gitconfig"
+    owner: "{{ primary_user }}"
+    group: "{{ primary_user_group }}"
+
+- name: Create gitignore
+  template:
+    src: gitignore
+    dest: "/home/{{ primary_user }}/.gitignore"
+    owner: "{{ primary_user }}"
+    group: "{{ primary_user_group }}"

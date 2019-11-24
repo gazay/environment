@@ -9,6 +9,7 @@ common_packages:
   - build-essential
   - cmake
   - xclip
+  - tmux
 excess_packages:
   - firefox
   - cheese
