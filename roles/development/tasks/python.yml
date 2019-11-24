@@ -54,11 +54,3 @@
   become: yes
   become_user: root
   command: '{{anaconda_link_dir}}/bin/conda update -y --all'
-
-- name: remove conda-curl since it conflicts with the system curl
-  become: yes
-  become_user: root
-  conda:
-    name: curl
-    state: absent
-    executable: '{{ anaconda_conda_bin }}'
