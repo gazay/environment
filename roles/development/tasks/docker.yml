@@ -6,7 +6,7 @@
 
 - name: Add Docker apt repository
   apt_repository:
-    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu eoan edge
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu disco stable
     state: present
 
 - name: Install Docker

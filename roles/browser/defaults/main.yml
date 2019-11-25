@@ -1,5 +1,5 @@
 ---
-install_chromium: True
-install_chrome: False
+install_chromium: False
+install_chrome: True
 install_firefox: False
 install_vivaldi: False

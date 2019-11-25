@@ -1,4 +1,4 @@
 ---
-install_zoom: True
+install_zoom: False
 install_tg: False
 install_slack: False

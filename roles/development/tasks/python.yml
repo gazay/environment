@@ -1,7 +1,7 @@
 ---
 - name: install OS pkg dependencies
   become: yes
-  become_user: root
+  become_user: primary_user
   with_items: '{{ anaconda_dep_pkgs | default([]) }}'
   loop_control:
     loop_var: anaconda_os_pkg

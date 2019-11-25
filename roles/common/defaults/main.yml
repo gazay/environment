@@ -29,4 +29,4 @@ excess_packages:
   - gnome-photos
   - simple-scan
   - virtualbox-guest-additions
-install_dropbox: True
+install_dropbox: False

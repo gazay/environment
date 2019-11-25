@@ -7,7 +7,7 @@ install_docker: True
 install_kubectl: False
 install_redis: False
 install_postgresql: False
-install_python: True
+install_python: False
 
 pathogen_plugins:
   - repo: "https://github.com/scrooloose/nerdtree.git"
