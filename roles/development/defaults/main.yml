@@ -1,7 +1,7 @@
 ---
 install_go: False
 install_vim: True
-install_ruby: False
+install_ruby: True
 install_node: False
 install_docker: True
 install_kubectl: False

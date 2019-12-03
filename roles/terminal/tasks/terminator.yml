@@ -12,9 +12,15 @@
     owner: "{{ primary_user }}"
     group: "{{ primary_user_group }}"
 
+- name: Check terminator config exists
+  stat:
+    path: "/home/{{ primary_user }}/.config/terminator/config"
+  register: tcfg
+
 - name: Create terminator config
   template:
     src: config
     dest: "/home/{{ primary_user }}/.config/terminator/config"
     owner: "{{ primary_user }}"
     group: "{{ primary_user_group }}"
+  when: not tcfg.stat.exists

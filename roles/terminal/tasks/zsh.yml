@@ -21,12 +21,23 @@
     owner: "{{ primary_user }}"
     group: "{{ primary_user_group }}"
 
+- name: Check my zsh config exists
+  stat:
+    path: "/home/{{ primary_user }}/.zshrc"
+  register: zrc
+
 - name: Create zsh config
   template:
     src: zshrc
     dest: "/home/{{ primary_user }}/.zshrc"
     owner: "{{ primary_user }}"
     group: "{{ primary_user_group }}"
+  when: not zrc.stat.exists
+
+- name: Check my editorconfig exists
+  stat:
+    path: "/home/{{ primary_user }}/.editorconfig"
+  register: ecfg
 
 - name: Create editorconfig
   template:
@@ -34,6 +45,12 @@
     dest: "/home/{{ primary_user }}/.editorconfig"
     owner: "{{ primary_user }}"
     group: "{{ primary_user_group }}"
+  when: not ecfg.stat.exists
+
+- name: Check my gitconfig exists
+  stat:
+    path: "/home/{{ primary_user }}/.gitconfig"
+  register: gcfg
 
 - name: Create gitconfig
   template:
@@ -41,6 +58,12 @@
     dest: "/home/{{ primary_user }}/.gitconfig"
     owner: "{{ primary_user }}"
     group: "{{ primary_user_group }}"
+  when: not gcfg.stat.exists
+
+- name: Check my gitignore exists
+  stat:
+    path: "/home/{{ primary_user }}/.gitconfig"
+  register: gign
 
 - name: Create gitignore
   template:
@@ -48,3 +71,4 @@
     dest: "/home/{{ primary_user }}/.gitignore"
     owner: "{{ primary_user }}"
     group: "{{ primary_user_group }}"
+  when: not gign.stat.exists
