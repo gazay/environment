@@ -120,3 +120,18 @@ else:
 ### Возможный фикс проблем с тачпадом:
 
 https://int3ractive.com/2018/09/make-the-best-of-MacBook-touchpad-on-Ubuntu.html
+
+Для настройки [dispad](https://github.com/BlueDragonX/dispad) для работы с
+libinput драйвером надо в конфиге выставить:
+
+```
+# ~/.dispad
+# name of the property used to enable/disable the trackpad
+property = "libinput Tapping Enabled"
+
+# the value used to enable the trackpad
+enable = 1
+
+# the value used to disable the trackpad
+disable = 0
+```
