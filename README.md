@@ -37,11 +37,13 @@
 
 5. Запускаем терминал:
 
-    ```bash sudo -s vgcreate system /dev/disk/by-id/dm-name-nvme0n1p3_crypt
+    ```bash
+    sudo -s
+    vgcreate system /dev/disk/by-id/dm-name-nvme0n1p3_crypt
     lvcreate -L 20G -n swap system # (нам нужен большой свап для хибернейта)
-    lvcreate -L 30G -n root system lvcreate -L 300G -n home system # (оставим в
-    запасе неразмеченным еще гигов под 100+ чтоб можно было куда угодно его
-    присунуть ```
+    lvcreate -L 30G -n root system
+    lvcreate -L 300G -n home system # (оставим в запасе неразмеченным еще гигов под 100+ чтоб можно было куда угодно его присунуть
+    ```
 
 6. Не закрываем терминал, запускаем установщик опять, опять доходим до Something
 else:
@@ -59,14 +61,14 @@ else:
 
 7. Возвращаемся в терминал
 
-    ```
-    bash blkid /dev/nvme0n1p3 # записываем UUID из команды echo
-    'nvme0n1p3_crypt UUID=(uuid without quotes) none luks,discard' >
-    /target/etc/crypttab mount -t proc proc /target/proc && mount --rbind /sys
-    /target/sys && mount --rbind /dev /target/dev && chroot /target grub-install
-    --target=x86_64-efi --efi-directory=/boot/efi --bootloader=ubuntu
-    --boot-directory=/boot/efi/EFI/ubuntu --recheck /dev/nvme0n1 grub-mkconfig
-    --output=/boot/efi/EFI/ubuntu/grub/grub.cfg update-initramfs -ck all exit
+    ```bash
+    blkid /dev/nvme0n1p3 # записываем UUID из команды
+    echo 'nvme0n1p3_crypt UUID=(uuid without quotes) none luks,discard' > /target/etc/crypttab
+    mount -t proc proc /target/proc && mount --rbind /sys /target/sys && mount --rbind /dev /target/dev && chroot /target
+    grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader=ubuntu --boot-directory=/boot/efi/EFI/ubuntu --recheck /dev/nvme0n1
+    grub-mkconfig --output=/boot/efi/EFI/ubuntu/grub/grub.cfg
+    update-initramfs -ck all
+    exit
     reboot
     ```
 
